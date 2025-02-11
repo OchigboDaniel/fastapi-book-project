@@ -57,7 +57,7 @@ async def get_book(book_id: int):
                 )
             return JSONResponse(
                  status_code=status.HTTP_404_NOT_FOUND,
-                 content={"message": "Book not found"}
+                 content={"details": "Book not found"}
             )
 
 @router.put("/{book_id}", response_model=Book, status_code=status.HTTP_200_OK)
