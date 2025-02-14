@@ -8,7 +8,7 @@ from api.db.schemas import Book, Genre, InMemoryDB
 router = APIRouter()
 
 db = InMemoryDB()
-db.books = {
+db.books = 
     1: Book(
         id=1,
         title="The Hobbit",
