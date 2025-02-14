@@ -23,7 +23,7 @@ jobs:
             cd fastapi-book-project
             echo "Current directory: $(pwd)"
             echo "Git remote configuration"
-            git remote -v
+            git remote -v fd
             echo "Pull from main branch"
             git fetch origin
             echo "Pull from main"
