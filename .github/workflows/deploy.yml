@@ -12,13 +12,30 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to server
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_USER }}
+          HOST: ${{ secrets.SSH_HOST }}
         run: |
-          ssh ${{ secrets.SSH_USER }}
-          @${{ secrets.SSH_HOST }} "
-          cd /path/to/app &&
-          git pull origin main &&
-          source venv/bin/activate &&
-          
-          
-          systemctl restart fastapi-app
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key $USER@$HOST << 'EOF' cd fastapi-book-project
+          echo "Current directory: $(pwd)"
+          echo "Git remote configuration"
+          git remote -v
+          echo "Fetch update"
+          get fetch origin
+          echo "Pull from main branch"
+          git fetch origin
+          echo "Pull from main"
+          get pull origin main || {echo "git pull failed";exit 1;}
+
+          echo "Install requirements"
+          source venv/bin/activate
+          pip install -r requirements.txt
+          echo "Return Service"
+          sudo systemctl daemon-reload
+          echo "Restart FastAppi service"
+          sudo systemctl restart fastapp.service
+          echo "Restart Nginx"
+          sudo systemctl restart nginx
+          EOF
           "
