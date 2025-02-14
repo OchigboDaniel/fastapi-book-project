@@ -24,12 +24,10 @@ jobs:
             echo "Current directory: $(pwd)"
             echo "Git remote configuration"
             git remote -v
-            echo "Fetch update"
-            get fetch origin
             echo "Pull from main branch"
             git fetch origin
             echo "Pull from main"
-            get pull origin main || {echo "git pull failed";exit 1;}
+            git pull origin main || {echo "git pull failed";exit 1;}
 
             echo "Install requirements"
             source venv/bin/activate
