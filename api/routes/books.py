@@ -47,7 +47,7 @@ async def create_book(book: Book):
 async def get_books() -> OrderedDict[int, Book]:
     return db.get_books()
 
-# Retrieve a book by its I
+# Retrieve a book by its ID
 @router.get("/{book_id}", response_model=Book, status_code=status.HTTP_200_OK)
 async def get_book(book_id: int):
             if book_id in db.books:   
