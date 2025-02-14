@@ -27,8 +27,7 @@ jobs:
             echo "Pull from main branch"
             git fetch origin
             echo "Pull from main"
-            git pull origin main || {echo "git pull failed";exit 1;}
-
+            git pull origin main || { echo "git pull failed"; exit 1; }
             echo "Install requirements"
             source venv/bin/activate
             pip install -r requirements.txt
