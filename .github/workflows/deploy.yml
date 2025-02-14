@@ -1,7 +1,7 @@
 name: Deploy
 on:
   push:
-    branches: [main, feat/get-book-by-id]
+    branches: [main]
   
 jobs:
   deploy:
@@ -19,27 +19,6 @@ jobs:
           git pull origin main &&
           source venv/bin/activate &&
           
-          sudo apt update &&
-          sudo apt install -y nginx &&
-
-          sudo tee /etc/nginx/sites-available/fastapi > /dev/null
-          <<EOT
-          server {
-            listen 80;
-            server_name ${{ secrets.SSH_HOST }};
-
-            location / {
-              proxy_pass http://127.0.0.1:8000;
-              proxy_set_header Host \$host;
-              proxy_set_header X-Real-IP \$remote_addr;
-              proxy_set_header X-Forwarded-For\$
-              proxy_add_x_forwarded_for;
-            }
-          }
-          EOT
-
-          sudo In -sf /ect/nignx/sites-available/fastapi /etc/nginx/sites-enabled/ &&
-          sudo systemctl restart nginx
-
+          
           systemctl restart fastapi-app
           "
